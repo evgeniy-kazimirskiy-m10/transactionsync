@@ -5,28 +5,24 @@ import pandas as pd
 db1_conn_details = {
     'dbname': 'account-balance',
     # Fill in the following details for the first database
-    'user': '',
-    'password': '',
-    'host': '',
-    'port': ''
+    'user': 'app',
+    'password': 'postgres',
+    'host': 'localhost',
+    'port': '5433'
 }
 
 db2_conn_details = {
     'dbname': 'business_account_service',
     # Fill in the following details for the second database
-    'user': '',
-    'password': '',
-    'host': '',
-    'port': ''
+    'user': 'app',
+    'password': 'postgres',
+    'host': 'localhost',
+    'port': '5433'
 }
 
 # List of user_id and operation_time tuples
 users_and_dates = [
-    ('partners-topaz-d6219e', '2024-07-19 11:45:01.050000 +00:00'),
-    ('partners-goalplus-mkn', '2024-06-24 13:15:06.996000 +00:00'),
-    ('partners-azerimed-mkn', '2024-07-12 04:50:40.211000 +00:00'),
-    ('partners-binance-mkng', '2024-06-07 09:27:54.159000 +00:00'),
-    ('online-acq-prod-check', '2024-05-21 11:05:31.201000 +00:00'),
+    ('binance-ichscgqcdpwob', '2025-12-31 11:45:01.050000 +00:00'),
 ]
 
 # SQL query to fetch data from the first database
@@ -116,7 +112,7 @@ def insert_data_into_db2(df):
                 category, merchant_name, transaction_time
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """, (
-                row['id'], row['type'], row['status'], row['amount'], None, row['currency'],
+                row['id'], row['type'], row['status'], row['amount'] / 100, row['amount'] / 100, row['currency'],
                 row['user_id'], row['wallet_id'], row['account_id'], row['from_account_id'],
                 row['from_wallet_id'], row['from_phone'], row['to_account_id'], row['to_wallet_id'],
                 row['to_phone'], row['payment_transaction_type'], row['order_id'], row['original_transaction_id'],
